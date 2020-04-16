@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.alexvasilkov.gestures.R;
@@ -108,6 +109,15 @@ public class CropAreaView extends View {
         arr.recycle();
 
         rounding = endRounding = rounded ? 1f : 0f;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return !areaRect.contains(event.getX(), event.getY());
+    }
+
+    public RectF getCropArea() {
+        return areaRect;
     }
 
     /**

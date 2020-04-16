@@ -12,16 +12,13 @@
         android:layout_marginBottom="48dp"
         app:gest_doubleTapZoom="3"
         app:gest_maxZoom="6"
-        app:gest_rotationEnabled="true"
-        tools:src="@drawable/painting_02" />
-
+        tools:src="@drawable/painting_01" />
     <com.alexvasilkov.gestures.commons.CropAreaView
         android:id="@+id/image_crop_area"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="48dp"
-        android:padding="32dp"
-        app:gest_aspect="1.3333"
+        android:padding="80dp"
         tools:gest_rulesHorizontal="2"
         tools:gest_rulesVertical="2" />
 

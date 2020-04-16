@@ -1,11 +1,21 @@
 package com.alexvasilkov.gestures.sample.ex.image.crop;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
+import com.alexvasilkov.gestures.GestureController;
+import com.alexvasilkov.gestures.State;
 import com.alexvasilkov.gestures.commons.CropAreaView;
 import com.alexvasilkov.gestures.sample.R;
 import com.alexvasilkov.gestures.sample.base.BaseActivity;
@@ -26,26 +36,60 @@ public class ImageCropActivity extends BaseActivity {
     private GestureImageView resultView;
 
     private int gridRulesCount = 2;
+    private boolean isDecor = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CountDownTimer timer = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                cropView.setRulesCount(0, 0);
+                cropView.setBackColor(Color.WHITE);
+            }
+        };
 
         setContentView(R.layout.image_crop_screen);
         getSupportActionBarNotNull().setDisplayHomeAsUpEnabled(true);
 
         imageView = findViewById(R.id.image_crop_viewer);
-
+        imageView.getController().getSettings().setOverzoomFactor(1.0f);
         cropView = findViewById(R.id.image_crop_area);
         cropView.setImageView(imageView);
+        cropView.setAspect((float) 9 / 16);
         cropView.setRulesCount(gridRulesCount, gridRulesCount);
-
+        imageView.getController().getSettings().setFlingEnabled(true);
         resultView = findViewById(R.id.image_crop_result);
 
         initCropOptions();
+        imageView.setImageResource(R.drawable.painting_01);
 
-        final Painting painting = Painting.list(getResources())[PAINTING_ID];
-        GlideHelper.loadFull(imageView, painting.imageId, painting.thumbId);
+        imageView.getController().addOnStateChangeListener(new GestureController.OnStateChangeListener() {
+            @Override
+            public void onStateChanged(State state) {
+                cropView.setRulesCount(2, 2);
+                cropView.setBackColor(Color.argb(160, 0, 0, 0));
+                Matrix matrix = new Matrix();
+                state.get(matrix);
+                Log.d("XXX: ", "" + matrix);
+                timer.start();
+            }
+
+            @Override
+            public void onStateReset(State oldState, State newState) {
+
+            }
+        });
+
+//        final Painting painting = Painting.list(getResources())[PAINTING_ID];
+//        GlideHelper.loadFull(imageView, painting.imageId, painting.thumbId);
     }
 
     @Override
