@@ -24,25 +24,31 @@
 
     <LinearLayout style="@style/App.ControlLayout">
 
-        <ImageView
-            android:id="@+id/crop_16_9"
-            style="@style/App.ControlOption"
-            android:src="@drawable/ic_crop_16_9_black_24dp" />
+        <TextView
+            android:id="@+id/btnLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/window_background_dark"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="Load Photo"/>
 
-        <ImageView
-            android:id="@+id/crop_1_1"
-            style="@style/App.ControlOption"
-            android:src="@drawable/ic_crop_square_black_24dp" />
-
-        <ImageView
-            android:id="@+id/crop_orig"
-            style="@style/App.ControlOption"
-            android:src="@drawable/ic_crop_original_black_24dp" />
-
-        <ImageView
-            android:id="@+id/crop_circle"
-            style="@style/App.ControlOption"
-            android:src="@drawable/ic_crop_circle_black_24dp" />
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/window_background_dark"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="Save"/>
 
         <View
             android:layout_width="0dp"
